@@ -1,6 +1,5 @@
 #include <cctype>
 #include <cstddef>
-#include <iostream>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -25,7 +24,7 @@ Config& Config::getInstance() {
 }
 
 // 获取存储配置项列表的容器
-std::vector<config_item_t>& Config::getItemList() { return _config_item_list; }
+const std::vector<config_item_t>& Config::getItemList() const { return _config_item_list; }
 
 // 有界拷贝
 void Config::copyBounded(
@@ -89,7 +88,7 @@ bool Config::Load(const char* config_file_name) {
         // 的字符开始遍历,遇到\r或者\n字符时停止,并返回\r或
         //\n在line中的下标,如果没有\r或\n,返回line的长度
         // 随后将其设置为'\0'
-        line[std::strcspn(line, "\r\n")] == '\0';
+        line[std::strcspn(line, "\r\n")] = '\0';
 
         // 4.4 去掉首尾空白
         // 4.4.1 去掉前面的空白:可以让"   key = value"也可读取
@@ -168,7 +167,7 @@ bool Config::Load(const char* config_file_name) {
 }
 
 // 根据配置项的名称获取对应的字符串
-const char* Config::getString(const char* item_name) {
+const char* Config::getString(const char* item_name) const {
     for (auto& ref : _config_item_list) {
         if (strcasecmp(item_name, ref.item_name) == 0) {
             return ref.item_content;
@@ -179,7 +178,7 @@ const char* Config::getString(const char* item_name) {
 }
 
 // 根据配置项的名称获取对应的数字
-int Config::getInt(const char* item_name, const int number) {
+int Config::getInt(const char* item_name, const int number) const {
     for (auto& ref : _config_item_list) {
         if (strcasecmp(item_name, ref.item_name) == 0) {
             return std::atoi(ref.item_content);

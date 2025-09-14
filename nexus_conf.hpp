@@ -1,7 +1,7 @@
 #ifndef _NEXUS_CONF_HPP_
 #define _NEXUS_CONF_HPP_
 #include <vector>
-#include "../include/nexus_utils.h"
+#include "../include/nexus_utils.hpp"
 
 
 //声明一个单例类读取配置文件
@@ -15,11 +15,11 @@ public:
   //加载配置文件
   bool Load(const char* config_file_name);
   //获取配置项中的名称获取对应的字符串
-  const char* getString(const char* item_name);
+  const char* getString(const char* item_name) const;
   //获取配置项中的名称获取对应的数字
-  int getInt(const char* item_name,const int number);
+  int getInt(const char* item_name,const int number) const;
   //获取存储配置项列表的容器
-  std::vector<config_item_t>& getItemList();
+  const std::vector<config_item_t>& getItemList() const;
 private:
   //有界拷贝
   void copyBounded(char* dst,size_t dstsz,const char* src,const char* file,size_t lineno,bool is_key);

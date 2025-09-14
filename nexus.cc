@@ -4,7 +4,7 @@
 #include <cstring>
 
 #include "../include/nexus_conf.hpp"
-#include "../include/nexus_utils.h"
+#include "../include/nexus_utils.hpp"
 
 int main() {
     Config& config = Config::getInstance();
